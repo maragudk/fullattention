@@ -1,0 +1,10 @@
+:8082 {
+  basic_auth {
+    # Username "Bob", password "hiccup"
+    Bob $2a$14$Zkx19XLiW6VYouLHR5NmfOFU0z2GTNmpkT/5qqR7hx4IjWJPDhjvG
+  }
+  reverse_proxy localhost:8080 {
+    lb_try_duration 30s
+    lb_try_interval 1s
+  }
+}

@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@source "../../glue/html/**/*.go";
+@source "/go/pkg/mod/maragu.dev/glue*/html/**/*.go";
+
+@font-face {
+  font-family: "Monaspace Argon";
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("Monaspace Argon Var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Monaspace Krypton";
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("Monaspace Krypton Var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Monaspace Neon";
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("Monaspace Neon Var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Monaspace Radon";
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("Monaspace Radon Var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Monaspace Xenon";
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("Monaspace Xenon Var.woff2") format("woff2");
+}
+
+@theme {
+  --font-mono:
+    "Monaspace Argon", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --font-mono--font-feature-settings: "liga" 1, "calt" 1;
+}
+
+@theme inline {
+  --color-primary-50: var(--color-red-50);
+  --color-primary-100: var(--color-red-100);
+  --color-primary-200: var(--color-red-200);
+  --color-primary-300: var(--color-red-300);
+  --color-primary-400: var(--color-red-400);
+  --color-primary-500: var(--color-red-500);
+  --color-primary-600: var(--color-red-600);
+  --color-primary-700: var(--color-red-700);
+  --color-primary-800: var(--color-red-800);
+  --color-primary-900: var(--color-red-900);
+  --color-primary-950: var(--color-red-950);
+}
