@@ -1,8 +1,8 @@
 # Full Attention
 
-[![Docs](https://pkg.go.dev/badge/maragu.dev/full-attention)](https://pkg.go.dev/maragu.dev/full-attention)
-[![CI](https://github.com/maragudk/full-attention/actions/workflows/ci.yml/badge.svg)](https://github.com/maragudk/full-attention/actions/workflows/ci.yml)
-[![CD](https://github.com/maragudk/full-attention/actions/workflows/cd.yml/badge.svg)](https://github.com/maragudk/full-attention/actions/workflows/cd.yml)
+[![Docs](https://pkg.go.dev/badge/maragu.dev/fullattention)](https://pkg.go.dev/maragu.dev/fullattention)
+[![CI](https://github.com/maragudk/fullattention/actions/workflows/ci.yml/badge.svg)](https://github.com/maragudk/fullattention/actions/workflows/ci.yml)
+[![CD](https://github.com/maragudk/fullattention/actions/workflows/cd.yml/badge.svg)](https://github.com/maragudk/fullattention/actions/workflows/cd.yml)
 
 Full Attention is an AI chat app with personas.
 

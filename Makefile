@@ -8,7 +8,7 @@ build-css: tailwindcss
 
 .PHONY: build-docker
 build-docker:
-	docker build --platform linux/arm64,linux/amd64 -t full-attention .
+	docker build --platform linux/arm64,linux/amd64 -t fullattention .
 
 .PHONY: clean-all
 clean-all:
