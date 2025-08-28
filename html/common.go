@@ -46,7 +46,7 @@ func Page(props PageProps, body ...Node) Node {
 			Meta(Name("htmx-config"), Content(`{"scrollIntoViewOnBoost":false}`)),
 			html.FavIcons("Full Attention"),
 		},
-		Body: []Node{Class("bg-primary-600 text-gray-900 dark:text-white font-mono"),
+		Body: []Node{Class("bg-primary-800 text-gray-900 dark:text-white font-mono"),
 			hx.Ext("morph"),
 			Div(Class("min-h-dvh flex flex-col justify-between"),
 				header(props),
@@ -64,10 +64,6 @@ func header(_ PageProps) Node {
 	return Div(
 		container(false),
 	)
-}
-
-func a(children ...Node) Node {
-	return A(Class("text-primary-600 hover:text-primary-400 dark:text-white dark:hover:text-gray-700"), Group(children))
 }
 
 func container(padY bool, children ...Node) Node {

@@ -4,11 +4,11 @@ benchmark:
 
 .PHONY: build-css
 build-css: tailwindcss
-		./tailwindcss -i tailwind.css -o public/styles/app.css --minify
+	./tailwindcss -i tailwind.css -o public/styles/app.css --minify
 
 .PHONY: build-docker
 build-docker:
-			docker build --platform linux/arm64,linux/amd64 -t full-attention .
+	docker build --platform linux/arm64,linux/amd64 -t full-attention .
 
 .PHONY: clean-all
 clean-all:

@@ -5,7 +5,6 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
-	"runtime/debug"
 	"syscall"
 	"time"
 
@@ -120,15 +119,4 @@ func start(log *slog.Logger) error {
 	log.Info("Stopped app")
 
 	return nil
-}
-
-func getVersion() string {
-	if info, ok := debug.ReadBuildInfo(); ok {
-		for _, setting := range info.Settings {
-			if setting.Key == "vcs.revision" {
-				return setting.Value
-			}
-		}
-	}
-	return "unknown"
 }
