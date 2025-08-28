@@ -1,0 +1,17 @@
+version = "1"
+
+[[providers]]
+name = "anthropic"
+key = "123"
+
+[[providers]]
+name = "fireworks"
+key = "123"
+
+[[providers]]
+name = "google"
+key = "123"
+
+[[providers]]
+name = "openai"
+key = "123"

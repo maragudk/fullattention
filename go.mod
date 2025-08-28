@@ -6,7 +6,7 @@ tool github.com/air-verse/air
 
 require (
 	github.com/mattn/go-sqlite3 v1.14.32
-	go.opentelemetry.io/otel v1.37.0
+	github.com/yuin/goldmark v1.7.13
 	golang.org/x/sync v0.16.0
 	maragu.dev/env v0.2.0
 	maragu.dev/errors v0.3.0
@@ -46,6 +46,7 @@ require (
 	github.com/tdewolff/parse/v2 v2.8.1 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.62.0 // indirect
+	go.opentelemetry.io/otel v1.37.0 // indirect
 	go.opentelemetry.io/otel/metric v1.37.0 // indirect
 	go.opentelemetry.io/otel/trace v1.37.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect

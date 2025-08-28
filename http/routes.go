@@ -11,7 +11,8 @@ import (
 func InjectHTTPRouter(log *slog.Logger, db *sqlite.Database) func(*Router) {
 	return func(r *Router) {
 		r.Group(func(r *http.Router) {
-			Home(r, log)
+			Home(r, log, db)
+			Conversations(r, log, db)
 		})
 	}
 }
