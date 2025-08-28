@@ -8,6 +8,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/honeycombio/otel-config-go/otelconfig"
 	"golang.org/x/sync/errgroup"
 	"maragu.dev/env"
 	"maragu.dev/errors"
@@ -45,6 +46,16 @@ func start(log *slog.Logger) error {
 	// Catch SIGTERM and SIGINT from the terminal, so we can do clean shutdowns.
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGTERM, syscall.SIGINT)
 	defer stop()
+
+	otelShutdown, err := otelconfig.ConfigureOpenTelemetry(
+		otelconfig.WithServiceName(appName), otelconfig.WithServiceVersion("TODO"),
+		otelconfig.WithMetricsEnabled(false),
+		otelconfig.WithExporterProtocol(otelconfig.ProtocolHTTPProto), otelconfig.WithExporterEndpoint("https://api.honeycomb.io"),
+	)
+	if err != nil {
+		return errors.Wrap(err, "error setting up otel")
+	}
+	defer otelShutdown()
 
 	databaseLog := log.With("component", "sql.Database")
 
