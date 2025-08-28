@@ -106,8 +106,8 @@ type ConversationDocument struct {
 	Turns        []Turn
 }
 
-func unmarshalConfig(s JSON) map[string]string {
-	config := map[string]string{}
+func unmarshalConfig(s JSON) map[string]any {
+	config := map[string]any{}
 	if err := json.Unmarshal([]byte(s), &config); err != nil {
 		panic(err)
 	}
