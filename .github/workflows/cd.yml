@@ -8,7 +8,7 @@ on:
 jobs:
   publish:
     name: Publish
-    runs-on: arm64
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read

@@ -15,7 +15,7 @@ concurrency:
 jobs:
   build:
     name: Build
-    runs-on: arm64
+    runs-on: ubuntu-latest
 
     steps:
       - name: Setup QEMU
