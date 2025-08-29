@@ -104,6 +104,52 @@ func TestDatabase_GetSpeakers(t *testing.T) {
 		is.Equal(t, "Me", speakers[0].Name)
 		is.Equal(t, "The Caretaker", speakers[1].Name)
 	})
+
+	t.Run("should return speakers with empty tools by default", func(t *testing.T) {
+		db := sqlitetest.NewDatabase(t)
+
+		speakers, err := db.GetSpeakers(t.Context())
+		is.NotError(t, err)
+		is.Equal(t, 2, len(speakers))
+
+		for _, speaker := range speakers {
+			is.Equal(t, 0, len(speaker.Tools))
+		}
+	})
+
+	t.Run("should return speakers with tools when assigned", func(t *testing.T) {
+		db := sqlitetest.NewDatabase(t)
+
+		// Create a speaker
+		savedSpeaker, err := db.SaveSpeaker(t.Context(), model.Speaker{
+			ModelID: modelGPT5,
+			Name:    "Tool Speaker",
+			System:  "Test system",
+			Config:  `{}`,
+		})
+		is.NotError(t, err)
+
+		// Assign the save_name tool to the speaker
+		_, err = db.H.Exec(t.Context(), "insert into speakers_tools (speaker_id, tool_name) values (?, ?)", 
+			savedSpeaker.ID, "save_name")
+		is.NotError(t, err)
+
+		speakers, err := db.GetSpeakers(t.Context())
+		is.NotError(t, err)
+
+		// Find our speaker in the results
+		var toolSpeaker *model.Speaker
+		for i, speaker := range speakers {
+			if speaker.Name == "Tool Speaker" {
+				toolSpeaker = &speakers[i]
+				break
+			}
+		}
+
+		is.True(t, toolSpeaker != nil)
+		is.Equal(t, 1, len(toolSpeaker.Tools))
+		is.Equal(t, "save_name", toolSpeaker.Tools[0])
+	})
 }
 
 func TestDatabase_GetSpeaker(t *testing.T) {
@@ -193,5 +239,76 @@ func TestDatabase_GetSpeaker(t *testing.T) {
 
 		filter := model.GetSpeakerFilter{}
 		_, _ = db.GetSpeaker(t.Context(), filter)
+	})
+
+	t.Run("should get speaker with empty tools by default", func(t *testing.T) {
+		db := sqlitetest.NewDatabase(t)
+
+		savedSpeaker, err := db.SaveSpeaker(t.Context(), model.Speaker{
+			ModelID: modelClaudeOpus,
+			Name:    "Test Speaker",
+			System:  "Test system",
+			Config:  `{"test": true}`,
+		})
+		is.NotError(t, err)
+
+		retrievedSpeaker, err := db.GetSpeaker(t.Context(), model.GetSpeakerFilter{ID: savedSpeaker.ID})
+		is.NotError(t, err)
+		is.Equal(t, savedSpeaker.ID, retrievedSpeaker.ID)
+		is.Equal(t, 0, len(retrievedSpeaker.Tools))
+	})
+
+	t.Run("should get speaker with tools when assigned", func(t *testing.T) {
+		db := sqlitetest.NewDatabase(t)
+
+		savedSpeaker, err := db.SaveSpeaker(t.Context(), model.Speaker{
+			ModelID: modelGPT5,
+			Name:    "Tool Test Speaker",
+			System:  "Test system",
+			Config:  `{}`,
+		})
+		is.NotError(t, err)
+
+		// Assign the save_name tool to the speaker
+		_, err = db.H.Exec(t.Context(), "insert into speakers_tools (speaker_id, tool_name) values (?, ?)", 
+			savedSpeaker.ID, "save_name")
+		is.NotError(t, err)
+
+		retrievedSpeaker, err := db.GetSpeaker(t.Context(), model.GetSpeakerFilter{ID: savedSpeaker.ID})
+		is.NotError(t, err)
+		is.Equal(t, savedSpeaker.ID, retrievedSpeaker.ID)
+		is.Equal(t, 1, len(retrievedSpeaker.Tools))
+		is.Equal(t, "save_name", retrievedSpeaker.Tools[0])
+	})
+
+	t.Run("should get speaker with multiple tools in sorted order", func(t *testing.T) {
+		db := sqlitetest.NewDatabase(t)
+
+		// Add a test tool for this test
+		_, err := db.H.Exec(t.Context(), "insert into tools (name) values (?)", "test_tool")
+		is.NotError(t, err)
+
+		savedSpeaker, err := db.SaveSpeaker(t.Context(), model.Speaker{
+			ModelID: modelGemini,
+			Name:    "Multi Tool Speaker",
+			System:  "Test system",
+			Config:  `{}`,
+		})
+		is.NotError(t, err)
+
+		// Note: Inserting in reverse alphabetical order to test sorting
+		_, err = db.H.Exec(t.Context(), "insert into speakers_tools (speaker_id, tool_name) values (?, ?)", 
+			savedSpeaker.ID, "test_tool")
+		is.NotError(t, err)
+		_, err = db.H.Exec(t.Context(), "insert into speakers_tools (speaker_id, tool_name) values (?, ?)", 
+			savedSpeaker.ID, "save_name")
+		is.NotError(t, err)
+
+		retrievedSpeaker, err := db.GetSpeaker(t.Context(), model.GetSpeakerFilter{ID: savedSpeaker.ID})
+		is.NotError(t, err)
+		is.Equal(t, savedSpeaker.ID, retrievedSpeaker.ID)
+		is.Equal(t, 2, len(retrievedSpeaker.Tools))
+		is.Equal(t, "save_name", retrievedSpeaker.Tools[0])  // Alphabetically first
+		is.Equal(t, "test_tool", retrievedSpeaker.Tools[1]) // Alphabetically second
 	})
 }
