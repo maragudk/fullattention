@@ -57,7 +57,20 @@ func (d *Database) SaveSpeaker(ctx context.Context, s model.Speaker) (model.Spea
 func (d *Database) GetSpeakers(ctx context.Context) ([]model.Speaker, error) {
 	var speakers []model.Speaker
 	err := d.H.Select(ctx, &speakers, "select * from speakers order by name")
-	return speakers, err
+	if err != nil {
+		return speakers, err
+	}
+
+	// Populate tools for each speaker
+	for i := range speakers {
+		tools, err := d.getSpeakerTools(ctx, speakers[i].ID)
+		if err != nil {
+			return speakers, err
+		}
+		speakers[i].Tools = tools
+	}
+
+	return speakers, nil
 }
 
 // GetSpeaker by ID or name.
@@ -78,5 +91,23 @@ func (d *Database) GetSpeaker(ctx context.Context, f model.GetSpeakerFilter) (mo
 	if errors.Is(err, sql.ErrNoRows) {
 		return s, model.ErrorSpeakerNotFound
 	}
-	return s, err
+	if err != nil {
+		return s, err
+	}
+
+	// Populate tools for the speaker
+	tools, err := d.getSpeakerTools(ctx, s.ID)
+	if err != nil {
+		return s, err
+	}
+	s.Tools = tools
+
+	return s, nil
+}
+
+// getSpeakerTools returns the tools associated with a speaker.
+func (d *Database) getSpeakerTools(ctx context.Context, speakerID model.SpeakerID) ([]string, error) {
+	var tools []string
+	err := d.H.Select(ctx, &tools, "select tool_name from speakers_tools where speaker_id = ? order by tool_name", speakerID)
+	return tools, err
 }
