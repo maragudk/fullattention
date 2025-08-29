@@ -42,7 +42,7 @@ func TurnsPartial(cd model.ConversationDocument) Node {
 
 		return Div(Class("flex"),
 			P(Text(s.Name)),
-			Div(Class("border border-gray-200 rounded-lg w-full px-4 mx-4"), Raw(content)),
+			Div(Class("border border-warm-gray-200 dark:border-warm-gray-600 rounded-lg w-full px-4 mx-4"), Raw(content)),
 		)
 	})
 }

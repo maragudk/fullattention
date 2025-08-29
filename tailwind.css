@@ -56,4 +56,17 @@
   --color-primary-800: var(--color-red-800);
   --color-primary-900: var(--color-red-900);
   --color-primary-950: var(--color-red-950);
+
+  /* Warm gray colors with brown/red undertones */
+  --color-warm-gray-50: #faf9f7;
+  --color-warm-gray-100: #f5f4f1;
+  --color-warm-gray-200: #e8e6e0;
+  --color-warm-gray-300: #d6d2c8;
+  --color-warm-gray-400: #b8b3a7;
+  --color-warm-gray-500: #9c9589;
+  --color-warm-gray-600: #857d71;
+  --color-warm-gray-700: #6f675d;
+  --color-warm-gray-800: #574f46;
+  --color-warm-gray-900: #3d352c;
+  --color-warm-gray-950: #2a221a;
 }
