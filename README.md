@@ -1,5 +1,7 @@
 # Full Attention
 
+<img src="logo.png" alt="Logo" width="300" align="right">
+
 [![Docs](https://pkg.go.dev/badge/maragu.dev/fullattention)](https://pkg.go.dev/maragu.dev/fullattention)
 [![CI](https://github.com/maragudk/fullattention/actions/workflows/ci.yml/badge.svg)](https://github.com/maragudk/fullattention/actions/workflows/ci.yml)
 [![CD](https://github.com/maragudk/fullattention/actions/workflows/cd.yml/badge.svg)](https://github.com/maragudk/fullattention/actions/workflows/cd.yml)
