@@ -6,7 +6,7 @@ tool github.com/air-verse/air
 
 require (
 	github.com/honeycombio/otel-config-go v1.17.0
-	github.com/mattn/go-sqlite3 v1.14.32
+	github.com/mattn/go-sqlite3 v1.14.33
 	github.com/yuin/goldmark v1.7.13
 	golang.org/x/sync v0.16.0
 	maragu.dev/env v0.2.0
