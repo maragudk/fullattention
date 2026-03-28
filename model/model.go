@@ -66,6 +66,7 @@ type Speaker struct {
 	Name    string
 	System  string
 	Config  JSON
+	Tools   []string `db:"-"`
 }
 
 type ConversationID ID
